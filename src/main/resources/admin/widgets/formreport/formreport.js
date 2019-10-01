@@ -1,7 +1,7 @@
 var contentLib = require('/lib/xp/content');
 var portalLib = require('/lib/xp/portal');
 var thymeleaf = require('/lib/thymeleaf');
-var ioLib = require('/lib/xp/io');
+// var ioLib = require('/lib/xp/io');
 var nodeLib = require('/lib/xp/node');
 var util = require('/lib/util/data');
 var moment = require('/lib/moment.min.js');
@@ -29,7 +29,13 @@ function handleGet(req) {
         key: contentId,
         branch: 'draft'
     });
+
     var isForm = (content.type === app.name + ':form');
+
+    // Workaround to allow form builder application to work with custom content type and HTTP controller
+    if (content.type === 'khib:form') {
+        isForm = true;
+    }
 
     var model = {
         widgetId: app.name,
@@ -124,4 +130,5 @@ function handleGet(req) {
         body: thymeleaf.render(view, model)
     };
 }
+
 exports.get = handleGet;

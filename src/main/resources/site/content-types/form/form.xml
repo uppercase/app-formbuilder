@@ -3,25 +3,19 @@
   <description>Input configuration and web form setup</description>
   <super-type>base:structured</super-type>
   <form>
-    <field-set name="elements">
-      <label>Form elements</label>
+    <input type="TextLine" name="headerText">
+      <label>Header</label>
+      <occurrences minimum="0" maximum="1"/>
+        <help-text>The header will be displayed just above the form.</help-text>
+    </input>
+    <field-set>
+      <label>Input fields</label>
       <items>
-        <!--input type="TextLine" name="title">
-          <label>Heading</label>
-          <occurrences minimum="0" maximum="1"/>
-          <help-text>Optionally add a heading to the form.</help-text>
-        </input>
-        <input type="HtmlArea" name="introText">
-          <label>Introduction text</label>
-          <occurrences minimum="0" maximum="1"/>
-          <help-text>Optional, will be shown below the title and above the form.</help-text>
-      </input-->
         <item-set name="inputs">
           <label>Input field</label>
           <items>
-              <mixin name="attr-label"/>
-              <!--mixin name="attr-title"/-->
-              <mixin name="attr-required"/>
+              <mixin name="com.enonic.app.formbuilder:attr-label"/>
+              <mixin name="com.enonic.app.formbuilder:attr-required"/>
               <option-set name="input">
                   <label>Type and config</label>
                   <expanded>false</expanded>
@@ -30,93 +24,13 @@
                     <option name="text">
                       <label>Text line</label>
                       <items>
-                          <mixin name="attr-placeholder"/>
-                          <mixin name="attr-value"/>
-                      </items>
-                    </option>
-                    <option name="textarea">
-                      <label>Text area</label>
-                      <items>
-                          <mixin name="attr-placeholder"/>
-                          <mixin name="attr-value"/>
                       </items>
                     </option>
                     <option name="email">
                       <label>E-mail</label>
-                      <items>
-                          <mixin name="attr-placeholder"/>
-                          <!-- TODO: checkbox for include data copy, ++ -->
-                      </items>
-                    </option>
-                    <option name="checkbox">
-                      <label>Checkbox</label>
-                      <items>
-                          <mixin name="attr-title"/>
-                      </items>
-                    </option>
-                    <option name="checkboxes">
-                      <label>Checkboxes group</label>
-                      <items>
-                          <mixin name="attr-options-radio"/>
-                          <mixin name="attr-title"/>
-                      </items>
-                    </option>
-                    <option name="radio">
-                      <label>Radio buttons</label>
-                      <items>
-                          <mixin name="attr-options-radio"/>
-                          <mixin name="attr-title"/>
-                      </items>
-                    </option>
-                    <option name="select">
-                      <label>Dropdown menu</label>
-                      <items>
-                          <mixin name="attr-placeholder"/>
-                          <mixin name="attr-options-radio"/>
-                      </items>
-                    </option>
-                    <option name="file">
-                      <label>File</label>
-                      <items>
-                          <mixin name="attr-title"/>
-                      </items>
                     </option>
                   </options>
-              </option-set>
-              <mixin name="attr-name"/>
-            <!--input name="input" type="ContentSelector">
-                <label>Input fields</label>
-                <occurrences minimum="1" maximum="1"/>
-                <config>
-                  <relationship-type>system:reference</relationship-type>
-                  <allow-content-type>input-checkbox</allow-content-type>
-                  <allow-content-type>input-checkboxes</allow-content-type>
-                  <allow-content-type>input-color</allow-content-type>
-                  <allow-content-type>input-date</allow-content-type>
-                  <allow-content-type>input-datetime-local</allow-content-type>
-                  <allow-content-type>input-email</allow-content-type>
-                  <allow-content-type>input-file</allow-content-type>
-                  <allow-content-type>input-heading</allow-content-type>
-                  <allow-content-type>input-hidden</allow-content-type>
-                  <allow-content-type>input-number</allow-content-type>
-                  <allow-content-type>input-password</allow-content-type>
-                  <allow-content-type>input-radio</allow-content-type>
-                  <allow-content-type>input-range</allow-content-type>
-                  <allow-content-type>input-search</allow-content-type>
-                  <allow-content-type>input-select</allow-content-type>
-                  <allow-content-type>input-tel</allow-content-type>
-                  <allow-content-type>input-text</allow-content-type>
-                  <allow-content-type>input-textarea</allow-content-type>
-                  <allow-content-type>input-time</allow-content-type>
-                  <allow-content-type>input-url</allow-content-type>
-                  <allowPath>${site}/*</allowPath>
-                </config>
-                <help-text>Add the input fields to display in your form. These must be created before they can be added, but you can save the form and return to add them later.</help-text>
-            </input-->
-            <!--input name="required" type="checkbox">
-              <label>Required</label>
-              <occurrences minimum="0" maximum="1"/>
-          </input-->
+              </option-set>            
           </items>
           <occurrences minimum="1" maximum="0"/>
         </item-set>
@@ -125,38 +39,19 @@
           <occurrences minimum="0" maximum="1"/>
           <help-text>Customize the text of the select button if you want. Defaults to "Submit" in the browser language.</help-text>
         </input>
-        <!--input type="ContentSelector" name="responseFolder">
-          <label>Folder to store responses</label>
+        <input type="TextLine" name="successMessage">
+          <label>Success message</label>
           <occurrences minimum="0" maximum="1"/>
-          <config>
-            <relationship-type>system:reference</relationship-type>
-            <allow-content-type>base:folder</allow-content-type>
-          </config>
-          <help-text>Select where to store response content. If no folder is selected, the responses will be stored as child elements of the current page.</help-text>
-      </input-->
-        <input type="HtmlArea" name="successMessage">
-          <label>Thank you message</label>
-          <occurrences minimum="0" maximum="1"/>
-          <help-text>Add an acknowledgment to show to the user when the form has been submitted.</help-text>
+          <help-text>Add an acknowledgment to show to the user when the form has been submitted successfully.</help-text>
         </input>
-        <!--input type="HtmlArea" name="errorMessage">
-          <label>Error message</label>
+        <input type="TextLine" name="failureMessage">
+          <label>Failure message</label>
           <occurrences minimum="0" maximum="1"/>
-          <help-text>Add an error message to show to the user if the form has failed to be submitted.</help-text>
-      </input>
-        <input type="ContentSelector" name="successContent">
-            <label>Thank you page</label>
-            <occurrences minimum="0" maximum="1"/>
-            <help-text>Optional. Redirect to this page after successful form submit. Takes precedence over 'Thank you message'. AJAX submit must be disabled for this to work properly</help-text>
+          <help-text>Add an acknowledgment to show to the user if form submission fails</help-text>
         </input>
-        <input type="ContentSelector" name="errorContent">
-            <label>Error page</label>
-            <occurrences minimum="0" maximum="1"/>
-            <help-text>Optional. Redirect to this page after failed form submit. Takes precedence over 'Error message'. AJAX submit must be disabled for this to work properly</help-text>
-        </input-->
       </items>
     </field-set>
-    <field-set name="email-settings">
+    <field-set>
       <label>Send data by e-mail</label>
       <items>
         <input type="TextLine" name="emailSubscribers">
@@ -175,62 +70,11 @@
             <regexp>^\S+.*\S+@\S+$</regexp><!-- allow both "e@mail.com" and "E-mail <e@mail.com>" without preceding or trailing whitespace -->
           </config>
         </input>
-        <!--input name="emailFromInput" type="ContentSelector">
-          <label>Set e-mail FROM based on form input</label>
-          <occurrences minimum="0" maximum="1"/>
-          <config>
-            <allow-content-type>input-email</allow-content-type>
-          </config>
-          <help-text>If one of the inputs for the form specified in the "Input fields" list above is of type "E-mail", that input may be used as the FROM address in the e-mail that is sent with the form data. That way, the e-mail subscribers may reply to the user e-mail directly. Overrides the default "E-mail sent FROM" specified further below.</help-text>
-      </input-->
         <input type="TextLine" name="emailSubject">
           <label>Subject</label>
           <occurrences minimum="0" maximum="1"/>
           <help-text>Is the form heading by default, but a custom e-mail subject may be specified here. If neither are filled out, the display name is used.</help-text>
         </input>
-        <!--input name="subjectField" type="ContentSelector">
-          <label>Use input field as e-mail subject</label>
-          <occurrences minimum="0" maximum="1"/>
-          <config>
-            <relationship-type>system:reference</relationship-type>
-            <allow-content-type>input-checkbox</allow-content-type>
-            <allow-content-type>input-checkboxes</allow-content-type>
-            <allow-content-type>input-color</allow-content-type>
-            <allow-content-type>input-date</allow-content-type>
-            <allow-content-type>input-datetime-local</allow-content-type>
-            <allow-content-type>input-email</allow-content-type>
-            <allow-content-type>input-file</allow-content-type>
-            <allow-content-type>input-heading</allow-content-type>
-            <allow-content-type>input-hidden</allow-content-type>
-            <allow-content-type>input-number</allow-content-type>
-            <allow-content-type>input-password</allow-content-type>
-            <allow-content-type>input-radio</allow-content-type>
-            <allow-content-type>input-range</allow-content-type>
-            <allow-content-type>input-search</allow-content-type>
-            <allow-content-type>input-select</allow-content-type>
-            <allow-content-type>input-tel</allow-content-type>
-            <allow-content-type>input-text</allow-content-type>
-            <allow-content-type>input-textarea</allow-content-type>
-            <allow-content-type>input-time</allow-content-type>
-            <allow-content-type>input-url</allow-content-type>
-          </config>
-      </input>
-        <input name="subjectCheckbox" type="checkbox">
-          <label>Append input name in e-mail subject</label>
-          <occurrences minimum="0" maximum="1"/>
-        </input>
-        <input name="sendReceipt" type="checkbox">
-          <label>Send e-mail receipt to user</label>
-          <occurrences minimum="0" maximum="1"/>
-        </input>
-        <input name="includeFormData" type="checkbox">
-          <label>Include form data in e-mail receipt to user</label>
-          <occurrences minimum="0" maximum="1"/>
-        </input>
-        <input name="receiptMessage" type="HtmlArea">
-          <label>Receipt message</label>
-          <occurrences minimum="0" maximum="1"/>
-      </input-->
       <option-set name="receipt">
           <label>E-mail receipt back to user</label>
           <expanded>false</expanded>
@@ -260,41 +104,12 @@
         </option-set>
     </items>
     </field-set>
-    <!--field-set name="advanced">
-      <label>Advanced settings</label>
-      <items>
-        <input type="TextLine" name="actionUrl">
-          <label>URL to submit form to</label>
-          <occurrences minimum="0" maximum="1"/>
-          <help-text>This is used as the "action" attribute on the form, and refers to where the form is sent when submitted. You can leave this empty, unless you want to submit to a a third-party application or want to handle the response in a special way. If empty, the form is submitted to the current page, and the default handler saves the response to the folder specified. When the "AJAX submit" is checked, only the form data is sent to the target URL, while the user remains on the current page.</help-text>
-        </input>
-        <input type="RadioButton" name="method">
-          <label>Submit method</label>
-          <occurrences minimum="1" maximum="1"/>
-          <config>
-            <option value="post">POST</option>
-            <option value="get">GET</option>
-          </config>
-          <default>post</default>
-          <help-text>"GET" should be used for example in searches, where the input parameters define what the user views. "POST" should be used when changing data or in most cases when submitting a form.</help-text>
-        </input>
-        <input type="CheckBox" name="useAjax">
-          <label>AJAX submit</label>
-          <occurrences minimum="0" maximum="1"/>
-          <default>checked</default>
-          <help-text>Only uncheck when the user should be sent to the target page upon submitting the form. An example of when this is useful is a search form, where the user should arrive at a result-page.</help-text>
-        </input>
-        <input type="ComboBox" name="style">
-          <label>Style</label>
-          <occurrences minimum="0" maximum="1"/>
-          <config>
-            <option value="inherit">Inherit browser default / site CSS</option>
-            <option value="xp-formbuilder">XP Formbuilder</option>
-            <option value="bootstrap">Twitter Bootstrap</option>
-          </config>
-          <help-text>Select which styling to apply. If "Browser default" is used, no style sheet is loaded for the form application, and you have full control over the form styling. "Twitter Bootstrap" currently uses v.3.3.5. "XP Formbuilder" is an extra example.</help-text>
-      </input>
-      </items>
-  </field-set-->
+    <input name="stripe" type="CustomSelector">
+      <label>Velg billettyper</label>
+      <occurrences minimum="0" maximum="0"/>
+      <config>
+        <service>stripe</service>
+      </config>
+    </input>    
   </form>
 </content-type>

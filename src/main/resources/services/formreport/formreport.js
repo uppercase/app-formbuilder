@@ -11,11 +11,14 @@ function createCSV(responses, formContent, separator) {
     var fieldNames = util.forceArray(formContent.data.inputs).map(function (inputConfig) {
         return inputConfig.label;
     });
+
+    fieldNames.push('sku');
     fieldNames.push('[submitted timestamp]');
 
     // Add response data to easily accessible array object
     var responseData = [];
     responses.forEach(function (response) {
+        response.data._sku = response.data.sku;
         response.data._createdTime = response.createdTime;
         responseData.push(response.data);
     });
@@ -36,7 +39,7 @@ function createCSV(responses, formContent, separator) {
     var csv = responseData.map(function (row) {
         return fieldReferences.map(function (fieldRef) {
             return JSON.stringify(row[fieldRef], replacer);
-        }).join(separator) + separator + row['_createdTime'];
+        }).join(separator) + separator + row['_sku'] + separator + row['_createdTime'];
     });
 
     // Add header column

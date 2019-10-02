@@ -30,8 +30,8 @@ function handleGet(req) {
         branch: 'draft'
     });
 
+    log.info('content.type: ' + content.type);
     var isForm = (content.type === app.name + ':form');
-
     // Workaround to allow form builder application to work with custom content type and HTTP controller
     if (content.type === 'khib:form') {
         isForm = true;

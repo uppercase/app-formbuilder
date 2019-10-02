@@ -12,7 +12,8 @@ var moment = require('/lib/moment.min.js'); // Import Moment.js
 
 exports.save = function(request, siteConfig, formContent) {
   var formConfig = formContent.data;
-  var formData = request.params;
+  // var formData = request.params;
+  var formData = JSON.parse(request.body);
   formData._formContentId = formContent._id;
   formData._formContentDisplayName = formConfig.title || formContent.displayName;
   var responseFolder = getResponseFolder(siteConfig, formConfig);
